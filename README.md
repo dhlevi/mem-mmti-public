@@ -1,10 +1,10 @@
-# mem-mmti-public
+# BCMI (mem-mmti-public)
 
 # Prerequisites
 
 ## Node and NPM
 
-Node 6.x must be installed.
+Node 10.19 must be installed.
 
 ## Install angular/cli
 
@@ -23,16 +23,10 @@ npm list -g @angular/cli --depth=0
 ng -v
 ```
 
-## Install [yarn](https://yarnpkg.com/lang/en/docs/install/#alternatives-tab).
-
-```
-npm i -g yarn
-```
-
 ## Fork, Build and Deployment
 
-1. After installing Node and Yarn, you can fork or straight download a copy of this application to start your own app.
-1. First download all the dependencies with `yarn install`
+1. After installing Node and Angular CLI, you can fork or straight download a copy of this application to start your own app.
+1. First download all the dependencies with `npm install`
 1. Run `npm start` to start the webpack server to run the application on port 4300
 
     Go to http://localhost:4300 to verify that the application is running
@@ -41,7 +35,7 @@ npm i -g yarn
 
 1. Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build, like so: `ng serve --prod` to run in production mode.
 1. Run `npm run lint` to lint your app code using `TSLint`
-
+1. Run `npm run test` to run the unit tests
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
@@ -120,11 +114,25 @@ Set up via [Karma](https://karma-runner.github.io), [Jasmine](https://jasmine.gi
 
 ### End-to-end functional tests
 
-Set up with [BDDStack](https://github.com/BCDevOps/BDDStack).
+Set up with [BDDStack](https://github.com/BCDevOps/BDDStack) and [BrowserStack](https://www.browserstack.com/). Modify `GebConfig.groovy` to customise your preferred browser. Configured remotes, confirmed to work with current tests include Chrome, Firefox, and Edge. Internet explorer and Safari are available as well, but tests fail due to driver compatiblity with current tests.
+
+### BrowserStack Config
+
+Open Source projects have free access to Browserstack Live and Automate, for up to 5 team members. To run tests with Browserstack you need to set the following environemnt variables:
+
+1. BROWSERSTACK_USERNAME
+2. BROWSERSTACK_TOKEN
+3. DEBUG_MODE (true or false)
 
 #### Run tests against local application:
 
-1. Run `ng run e2e` to automatically start the application locally and execute the end-to-end tests.
+- Run `ng run e2e` to automatically start the application locally and execute the end-to-end tests against a headless Chrome.
+
+    OR
+
+- Download BrowserStack [binary](https://www.browserstack.com/local-testing) set `BASEURL` to your local application address, and run `./gradlew remoteChrome`
+
+Note, e2e functional testing requires Java 10+.
 
 #### Run tests against remote application:
 
@@ -162,7 +170,7 @@ For dev, test, and production builds on OpenShift/Jenkins see [openshift/README.
 
 # Visual Studio Code
 
-To use our Visual Studio Code extensions copy the contents of vscodeextensions.txt in the root directory and paste it into bash. If it doesnt work, make sure you have the Code CLI installed `code --version` and if it's not installed open the command palette (shift + command + p) and run `Shell Command: install 'code' command in PATH`.
+To use our Visual Studio Code extensions copy the contents of vscodeextensions.txt in the scripts directory and paste it into bash. If it doesnt work, make sure you have the Code CLI installed `code --version` and if it's not installed open the command palette (shift + command + p) and run `Shell Command: install 'code' command in PATH`.
 
 # How to Contribute
 
@@ -170,4 +178,4 @@ Feel free to create pull requests from the default "master" branch, click here t
 
 # Testing Thanks
 
-Thanks to BrowserStack for Testing Tool support via OpenSource Licensing ![BrowserStack](browserstack-logo-white-small.png)
+Thanks to BrowserStack for Testing Tool support via OpenSource Licensing ![BrowserStack](docs/browserstack-logo-white-small.png)

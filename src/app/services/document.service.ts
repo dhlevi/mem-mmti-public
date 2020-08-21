@@ -1,17 +1,14 @@
+import {forkJoin as observableForkJoin } from 'rxjs';
+
+import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/operator/catch';
+import { Api } from 'app/services/api';
 
-import { Api } from './api';
-
-import { Search, SearchArray, SearchTerms } from '../models/search';
-import { Project } from '../models/project';
-import { Proponent } from '../models/proponent';
+import {  SearchArray, SearchTerms } from 'app/models/search';
+import { Project } from 'app/models/project';
+import { Proponent } from 'app/models/proponent';
 
 @Injectable()
 export class DocumentService {
@@ -127,30 +124,32 @@ export class DocumentService {
 
     // Field selection
     query += '&fields=_id project displayName documentDate description datePosted documentCategories collections keywords inspectionReport';
-    const mem = this.api.getMEM(`v2/${query}${memProjectQuery}`)
-    .map((res: Response) => {
-      const data = res.text() ? res.json() : { count: 0, results: [] };
+    const mem = this.api.getMEM(`v2/${query}${memProjectQuery}`).pipe(
+    map((res: HttpResponse<any>) => {
+      const data = res.body.text() ? res.body.json() : { count: 0, results: [] };
       if (data.results) {
         data.results.forEach(i => {
           i.hostname = this.api.hostnameMEM;
         });
       }
       return data;
-    });
+    }));
 
     if (epicProjectQuery) {
-      const epic = this.api.getEPIC(`v3/${query}${epicProjectQuery}`)
-      .map((res: Response) => {
-        const data = res.text() ? res.json() : { count: 0, results: [] };
+      const epic = this.api.getEPIC(`v3/${query}${epicProjectQuery}`).pipe(
+      map((res: HttpResponse<any>) => {
+        const data = res.body.text() ? res.body.json() : { count: 0, results: [] };
         if (data.results) {
           data.results.forEach(i => {
             i.hostname = this.api.hostnameEPIC;
           });
         }
         return data;
-      });
-      return Observable.forkJoin([mem, epic]);
+      }));
+
+      return observableForkJoin([mem, epic]);
     }
-    return Observable.forkJoin([mem]);
+
+    return mem;
   }
 }

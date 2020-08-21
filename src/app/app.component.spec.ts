@@ -2,10 +2,9 @@ import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { CookieService } from 'ngx-cookie-service';
-import { Api } from './services/api';
-import { Http, HttpModule } from '@angular/http';
-import { DocumentService } from './services/document.service';
-import { AppComponent } from './app.component';
+import { Api } from 'app/services/api';
+import { HttpClientModule } from '@angular/common/http';
+import { AppComponent } from 'app/app.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -20,7 +19,7 @@ describe('AppComponent', () => {
       imports: [
         RouterTestingModule,
         NgxPageScrollModule,
-        HttpModule
+        HttpClientModule
       ]
     }).compileComponents();
   }));

@@ -1,13 +1,13 @@
 import { Component, Input, HostBinding, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
 
-import { MapInitEvent } from '../esri-map/esri-map.component';
-import { MapConfigService } from '../core';
-import { WidgetBuilder } from '../widgets/widget-builder';
-import * as utils from '../support/map-utils';
+import { MapInitEvent } from 'app/map/esri-map/esri-map.component';
+import { MapConfigService } from 'app/map/core';
+import { WidgetBuilder } from 'app/map/widgets/widget-builder';
+import * as utils from 'app/map/support/map-utils';
 
 @Component({
   selector: 'app-main-map',

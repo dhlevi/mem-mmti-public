@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
-import { Project } from '../../../models/project';
-import { CollectionsGroup } from '../../../models/collection';
+import { Project } from 'app/models/project';
+import { CollectionsGroup } from 'app/models/collection';
 
 @Component({
   selector: 'app-authorizations-tab-content',
@@ -39,6 +39,8 @@ export class AuthorizationsTabContentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }

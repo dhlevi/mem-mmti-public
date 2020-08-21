@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { PaginationInstance } from 'ngx-pagination';
 
-import { Project } from '../../models/project';
-import { ProjectService } from '../../services/project.service';
+import { Project } from 'app/models/project';
+import { ProjectService } from 'app/services/project.service';
 
 @Component({
   selector: 'app-project-list',
@@ -36,6 +36,7 @@ export class ProjectListComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
+    window.scrollTo(0, 0);
     this.projectService.getAll().subscribe(
       data => this.parseData(data),
       error => console.log(error)

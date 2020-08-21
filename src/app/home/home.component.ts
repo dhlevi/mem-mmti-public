@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Home } from '../models/home';
-import { ProjectService } from '../services/project.service';
-import { Api } from '../services/api';
+import { ProjectService } from 'app/services/project.service';
+import { Api } from 'app/services/api';
 
 @Component({
   selector: 'app-home',
@@ -19,5 +18,6 @@ export class HomeComponent implements OnInit {
       error => console.log(error)
     );
     this.hostname = this.api.hostnameMEM;
+    window.scrollTo(0, 0);
   }
 }
